@@ -25,6 +25,7 @@ CREATE TABLE Member (
     FirstName VARCHAR(50) NOT NULL,
     MiddleInit CHAR(1),
     LastName VARCHAR(50) NOT NULL,
+    SteetNum INT UNSIGNED NOT NULL,
     StreetName VARCHAR(100) NOT NULL,
     City VARCHAR(60) NOT NULL,
     Province VARCHAR(25) NOT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE Member (
     Make VARCHAR(100) NOT NULL,
     Model VARCHAR(100) NOT NULL,
     Year YEAR NOT NULL,
-    Odometer FLOAT(20, 4) NOT NULL DEFAULT 0,
+    Odometer INT UNSIGNED NOT NULL DEFAULT 0,
     Location INT UNSIGNED NOT NULL,
     DailyFee FLOAT(13,2) NOT NULL,
     CarStatus VARCHAR(100) NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE Reservation (
 CREATE TABLE MaintenanceHist (
     RepairID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     Date DATE NOT NULL,
-    Odometer FLOAT(20,4) NOT NULL,
+    Odometer INT UNSIGNED NOT NULL,
     Type VARCHAR(100) NOT NULL,
     Description TEXT,
     VIN VARCHAR(100) NOT NULL,
@@ -92,8 +93,8 @@ CREATE TABLE MaintenanceHist (
 ```sql
 CREATE TABLE Pickup (
     ReservationID INT UNSIGNED NOT NULL,
-    Odometer FLOAT(20, 4) NOT NULL,
-    Date DATE NOT NULL,
+    Odometer INT UNSIGNED NOT NULL,
+    Time TIME NOT NULL,
     Status VARCHAR(10) NOT NULL,
     PRIMARY KEY ( ReservationID ),
     FOREIGN KEY ( ReservationID ) REFERENCES Reservation(ReservationID)
@@ -104,8 +105,8 @@ CREATE TABLE Pickup (
 ```sql
 CREATE TABLE DropOff (
     ReservationID INT UNSIGNED NOT NULL,
-    Odometer FLOAT(20, 4) NOT NULL,
-    Date DATE NOT NULL,
+    Odometer INT UNSIGNED NOT NULL,
+    Time TIME NOT NULL,
     Status VARCHAR(10) NOT NULL,
     PRIMARY KEY ( ReservationID ),
     FOREIGN KEY ( ReservationID ) REFERENCES Reservation(ReservationID)
