@@ -39,22 +39,76 @@ CREATE TABLE Member (
 );
 ```
 
+## Car
+
+```sql
+    CREATE TABLE CAR (
+    VIN VARCHAR(100) NOT NULL,
+    Make VARCHAR(100) NOT NULL,
+    Model VARCHAR(100) NOT NULL,
+    Year YEAR NOT NULL,
+    Odometer FLOAT(20, 4) NOT NULL DEFAULT 0,
+    Location INT UNSIGNED NOT NULL,
+    DailyFee FLOAT(13,2) NOT NULL,
+    CarStatus VARCHAR(100) NOT NULL,
+    PRIMARY KEY ( VIN ),
+    FOREIGN KEY ( Location ) REFERENCES ParkingLocation(LocationID)
+);
+```
+
+## Reservation
+
+```sql
+CREATE TABLE Reservation (
+    ReservationID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    MemberID INT UNSIGNED NOT NULL,
+    VIN VARCHAR(100) NOT NULL,
+    AccessCode VARCHAR(100) NOT NULL,
+    Completed BOOLEAN NOT NULL,
+    PickupDate DATE NOT NULL,
+    DropOffDate DATE NOT NULL,
+    PRIMARY KEY ( ReservationID ),
+    FOREIGN KEY ( MemberID ) REFERENCES Member(MemberID),
+    FOREIGN KEY ( VIN ) REFERENCES Car(VIN)
+);
+```
+
 ## MaintenanceHist
 
 ```sql
-
+CREATE TABLE MaintenanceHist (
+    RepairID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Date DATE NOT NULL,
+    Odometer FLOAT(20,4) NOT NULL,
+    Type VARCHAR(100) NOT NULL,
+    Description TEXT,
+    VIN VARCHAR(100) NOT NULL,
+    PRIMARY KEY ( RepairID, VIN ),
+    FOREIGN KEY ( VIN ) REFERENCES Car(VIN)
+);
 ```
 
 ## Pickup
-# NOT GOOD
 ```sql
 CREATE TABLE Pickup (
-    ReservationID INT NOT NULL AUTO_INCREMENT,
-    Odometer FLOAT(20, 4) NOT NULL DEFAULT 0,
-    Date DATE NOT NULL DEFAULT CURRENT_DATE,
+    ReservationID INT UNSIGNED NOT NULL,
+    Odometer FLOAT(20, 4) NOT NULL,
+    Date DATE NOT NULL,
     Status VARCHAR(10) NOT NULL,
-    FOREIGN KEY ( ReservationID ) REFERENCES Reservation( ReservationID ),
-    PRIMARY KEY ( ReservationID )
+    PRIMARY KEY ( ReservationID ),
+    FOREIGN KEY ( ReservationID ) REFERENCES Reservation(ReservationID)
+);
+```
+
+## Dropoff
+```sql
+CREATE TABLE DropOff (
+    ReservationID INT UNSIGNED NOT NULL,
+    Odometer FLOAT(20, 4) NOT NULL,
+    Date DATE NOT NULL,
+    Status VARCHAR(10) NOT NULL,
+    PRIMARY KEY ( ReservationID ),
+    FOREIGN KEY ( ReservationID ) REFERENCES Reservation(ReservationID)
 );
 ```
 
