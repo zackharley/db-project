@@ -52,7 +52,7 @@ CREATE TABLE Member (
     Location INT UNSIGNED NOT NULL,
     DailyFee FLOAT(13,2) NOT NULL,
     CarStatus VARCHAR(100) NOT NULL,
-    CurrentlyRented BOOLEAN NOT NULL,
+    CurrentlyRented BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY ( VIN ),
     FOREIGN KEY ( Location ) REFERENCES ParkingLocation(LocationID)
 );
