@@ -112,4 +112,18 @@ CREATE TABLE DropOff (
 );
 ```
 
+## RentalComments
+
+```sql
+CREATE TABLE RentalComments (
+    ReservationID INT UNSIGNED NOT NULL,
+    MemberID INT UNSIGNED NOT NULL,
+    Rating TINYINT UNSIGNED NOT NULL,
+    Comment Text,
+    PRIMARY KEY ( ReservationID ),
+    FOREIGN KEY ( ReservationID ) REFERENCES Reservation(ReservationID),
+    FOREIGN KEY ( MemberID ) REFERENCES Member(MemberID)
+);
+```
+
 
